@@ -1,43 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import ConfigParser
+
 import requests
 from lxml import html
-import os
+from config import getConfig
 
-def getConfig():
-    config = ConfigParser.ConfigParser()
-    if os.path.isfile('config.ini'):
-        config.read('config.ini')
-        identity = config.get('account', 'username')
-        password = config.get('account', 'password')
-
-        form = {
-            'identity': identity,
-            'password': password
-        }
-    else:
-        form = createConfig()
-    return form
-
-def createConfig():
-    username = raw_input('username: ')
-    password = raw_input('password: ')
-    form = {
-        'identity': username,
-        'password': password
-    }
-    configFile = open('config.ini', 'w')
-    config = ConfigParser.ConfigParser()
-    config.add_section('account')
-    config.set('account', 'username', username)
-    config.set('account', 'password', password)
-    config.write(configFile)
-    return form
+login_url = 'https://bluecloud.xyz/auth/login'
 
 def sendRequest(url, form):
     session = requests.Session()
-    response = session.post(url, data=form)
+    response = session.post(login_url, data=form)
     tree = html.fromstring(response.content)
     segment = tree.xpath('//*[@id="home"]/div[3]/div[3]')
     if len(segment) > 0:
@@ -55,7 +27,7 @@ def sendRequest(url, form):
 
 def main():
     form = getConfig()
-    sendRequest('https://bluecloud.xyz/auth/login', form)
+    sendRequest(form)
 
 if __name__ == '__main__':
     main()

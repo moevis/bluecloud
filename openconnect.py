@@ -6,8 +6,9 @@ from lxml import html
 from config import getConfig
 import os
 
-login_url = 'https://bluecloud.xyz/auth/login'
+login_url       = 'https://bluecloud.xyz/auth/login'
 server_list_url = 'https://bluecloud.xyz/server'
+template        = open('openconnect_tpl.sh').read()
 
 def sendRequest(form):
     session = requests.Session()
@@ -20,12 +21,11 @@ def sendRequest(form):
         os.mkdir('openconnect')
     for server, protocol in zip(server_link, protocol_support):
         if protocol.find(u'AnyConnect') != -1 and server.find('hk') != 0:
-            command = 'echo "{}" |  sudo openconnect --user={} --authgroup=smart --passwd-on-stdin {}:4433'\
-                .format(form['password'], form['identity'], server)
+            command = template.format(password=form['password'], user=form['identity'], server=server)
             filename = 'openconnect/{}.sh'.format(server)
             open(filename, 'w').write(command)
             os.chmod(filename, 0700)
-            print server, protocol
+            print server, "script generated!"
 
 def main():
     form = getConfig()

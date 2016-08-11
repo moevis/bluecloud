@@ -7,7 +7,7 @@ from config import getConfig
 
 login_url = 'https://bluecloud.xyz/auth/login'
 
-def sendRequest(url, form):
+def sendRequest(form):
     session = requests.Session()
     response = session.post(login_url, data=form)
     tree = html.fromstring(response.content)

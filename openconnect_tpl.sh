@@ -8,7 +8,11 @@ USER="{user}"
 
 function start_connection
 {{
-	echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER:4433 
+    if [[ $SERVER == hk* ]]; then
+        echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER
+    else
+        echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER:4433 
+    fi
 }}
 
 function show_connection_info
@@ -21,13 +25,13 @@ function show_connection_info
 function show_message
 {{
 
-	echo "==================================="
+	echo "======================================================================"
 	show_connection_info
 	# no group assigned
-	echo "-----------------------------------"
+	echo "----------------------------------------------------------------------"
 
 	if [ "$GROUP" == "" ]; then
-		echo "RUN WITH GROUP NUMBER:"
+        echo "RUN WITH GROUP NUMBER: (default [smart]):"
 		echo "1) smart"
 		echo "2) global"
 		echo "3) smart-blacklist"
@@ -48,7 +52,7 @@ function show_message
 		echo "RUNNING IN [$MODE] MODE"
 	fi
 	
-	echo "==================================="
+	echo "======================================================================"
 }}
 
 show_message

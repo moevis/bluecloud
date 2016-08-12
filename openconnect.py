@@ -20,7 +20,7 @@ def sendRequest(form):
     if not os.path.isdir('openconnect'):
         os.mkdir('openconnect')
     for server, protocol in zip(server_link, protocol_support):
-        if protocol.find(u'AnyConnect') != -1 and server.find('hk') != 0:
+        if protocol.find(u'AnyConnect') != -1: # and server.find('hk') != 0:
             command = template.format(password=form['password'], user=form['identity'], server=server)
             filename = 'openconnect/{}.sh'.format(server)
             open(filename, 'w').write(command)

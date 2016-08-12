@@ -26,7 +26,7 @@ function show_message
 	# no group assigned
 	echo "-----------------------------------"
 
-	if [ $GROUP == "" ]; then
+	if [ "$GROUP" == "" ]; then
 		echo "RUN WITH GROUP NUMBER:"
 		echo "1) smart"
 		echo "2) global"

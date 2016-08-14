@@ -29,3 +29,6 @@ sudo apt-get update
 ```bash
 sudo apt-get install openconnect
 ```
+
+## License
+WTFPL

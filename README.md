@@ -30,5 +30,13 @@ sudo apt-get update
 sudo apt-get install openconnect
 ```
 
+### Shadowsocks 配置脚本
+
+需要先下载命令行版 shadowsocks，方法为
+
+```pip install shadowsocks```
+
+然后运行 `shadowsocks.py`，将会在目录下生成以你套餐名为名的文件夹，进入文件夹运行脚本即可。本地端口默认1080.
+
 ## License
 WTFPL

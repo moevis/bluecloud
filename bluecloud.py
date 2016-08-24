@@ -16,14 +16,17 @@ def sendRequest(form):
         segment = segment[0]
         service_name = segment.xpath('//h4/text()')
         service_usage = segment.xpath('//div[@class="label"]/text()')
+        myService = tree.xpath(u'//h2[text()="我的服务"]')[0].getparent()
+        periods = myService.xpath('p/text()')
     else:
         print "Error!"
         print "Maybe wrong username or password."
         return
-    for name, usage in zip(service_name, service_usage):
+    for name, usage, period in zip(service_name, service_usage, periods):
         print name
         print usage
-        print '--------------------------'
+        print period.replace('&nbsp', '')
+        print '--------------------------\n'
 
 def main():
     form = getConfig()

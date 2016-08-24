@@ -7,7 +7,8 @@ PORT="{port}"
 RATIO="{ratio}"
 EXTRA=$(cat <<EOF
 {extra}
-EOF)
+EOF
+)
 
 function start_connection
 {{
@@ -18,7 +19,7 @@ function show_connection_info
 {{
 	echo `date`
     echo "        SERVER: $SERVER"
-	echo "        METHOD: METHOD"
+	echo "        METHOD: $METHOD"
 	echo "    LOCAL PORT: 1080"
 	echo "BANDWITH RATIO: $RATIO"
 	echo $EXTRA

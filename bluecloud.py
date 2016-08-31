@@ -5,12 +5,19 @@ import requests
 from lxml import html
 from config import getConfig
 
+import sys
+
+reload(sys)
+print sys.setdefaultencoding('utf-8')
+print sys.getdefaultencoding( )
+
 login_url = 'https://bluecloud.xyz/auth/login'
 
 def sendRequest(form):
     session = requests.Session()
     response = session.post(login_url, data=form)
-    tree = html.fromstring(response.content)
+    response.encoding = response.apparent_encoding
+    tree = html.fromstring(response.text)
     segment = tree.xpath('//*[@id="home"]/div[3]/div[3]')
     if len(segment) > 0:
         segment = segment[0]
@@ -24,8 +31,8 @@ def sendRequest(form):
         return
     for name, usage, period in zip(service_name, service_usage, periods):
         print name
-        print usage
-        print period.replace('&nbsp', '')
+        print usage.encode('utf-8').decode('utf-8')
+        print period.replace(u'&nbsp', u'').encode('utf-8').decode('utf-8')
         print '--------------------------\n'
 
 def main():

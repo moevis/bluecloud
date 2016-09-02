@@ -5,12 +5,6 @@ import requests
 from lxml import html
 from config import getConfig
 
-import sys
-
-reload(sys)
-print sys.setdefaultencoding('utf-8')
-print sys.getdefaultencoding( )
-
 login_url = 'https://bluecloud.xyz/auth/login'
 
 def sendRequest(form):

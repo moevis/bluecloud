@@ -1,6 +1,9 @@
 import ConfigParser
 import os
 
+import codecs
+codecs.register(lambda name: codecs.lookup('utf-8') if name == 'cp65001' else None)
+
 def getConfig():
     config = ConfigParser.ConfigParser()
     if os.path.isfile('config.ini'):

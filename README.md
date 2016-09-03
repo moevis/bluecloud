@@ -30,7 +30,7 @@ sudo apt-get update
 sudo apt-get install openconnect
 ```
 
-### Shadowsocks 配置脚本
+### Shadowsocks 配置脚本(for window / linux / macOs)
 
 需要先下载命令行版 shadowsocks，方法为
 

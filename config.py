@@ -1,6 +1,6 @@
 import ConfigParser
 import os
-
+import getpass
 import codecs
 codecs.register(lambda name: codecs.lookup('utf-8') if name == 'cp65001' else None)
 
@@ -20,8 +20,8 @@ def getConfig():
     return form
 
 def createConfig():
-    username = raw_input('username: ')
-    password = raw_input('password: ')
+    username = raw_input('Username: ')
+    password = getpass.getpass()
     form = {
         'identity': username,
         'password': password

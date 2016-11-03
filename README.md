@@ -11,7 +11,7 @@
 
 运行 connect.py 后，会在代码目录生成一个 openconnect 文件夹，里面按服务器生成了连接脚本，想要连接的话，运行脚本就可以了。用户名和密码都是配置好的，只要用 root 权限执行即可。可添加参数 1,2,3 来指定运行模式，1 为 smart，2 为 global，3 为 smart-blacklist，默认 smart. **由于脚本里面已经存储了密码，请不要随便传播**。
 
-openconnect 至少要 6.0 版本，因为需要免输入密码登陆，在 ubuntu 14.04 及以下经 ap-get 是运行不了的。可以将 openconnect 升级到 6.0 (backport)解决，或者 7.0 (daily)。
+openconnect 至少要 6.0 版本，因为需要免输入密码登陆，在 ubuntu 14.04 及以下经 apt-get 是运行不了的。可以将 openconnect 升级到 6.0 (backport)解决，或者 7.0 (daily)。
 
 6.0 版
 ```bash
@@ -35,6 +35,8 @@ sudo apt-get install openconnect
 需要先下载命令行版 shadowsocks，方法为
 
 ```pip install shadowsocks```
+
+本脚本还依赖 requests 和 lxml，建议也一并通过 pip 下载。
 
 然后运行 `shadowsocks.py`，将会在目录下生成以你套餐名为名的文件夹，进入文件夹运行脚本即可。本地端口默认1080.
 

@@ -5,7 +5,7 @@ import requests
 from lxml import html
 from config import getConfig
 
-login_url = 'https://bluecloud.xyz/auth/login'
+login_url = 'https://monocloud.co/auth/login'
 
 def sendRequest(form):
     session = requests.Session()

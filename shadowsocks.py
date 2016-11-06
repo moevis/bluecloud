@@ -9,7 +9,7 @@ import os
 import codecs
 
 
-login_url = 'https://bluecloud.xyz/auth/login'
+login_url = 'https://monocloud.co/auth/login'
 if isWindow():
     template  = codecs.open('shadowsocks_win_tpl.bat', encoding='utf-8').read()
 else:
@@ -20,7 +20,7 @@ def sendRequest(form):
     response = session.post(login_url, data=form)
     tree = html.fromstring(response.content)
     myService = tree.xpath(u'//h2[text()="我的服务"]')[0].getparent()
-    shadowsocksPage = myService.xpath('//a[starts-with(@href, "https://bluecloud.xyz/shadowsock")]/@href')
+    shadowsocksPage = myService.xpath('//a[starts-with(@href, "https://monocloud.co/shadowsock")]/@href')
     for url in shadowsocksPage:
         getShadowsocksInfo(session, url)
 

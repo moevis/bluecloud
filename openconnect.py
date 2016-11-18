@@ -6,8 +6,8 @@ from lxml import html
 from config import getConfig
 import os
 
-login_url       = 'https://bluecloud.xyz/auth/login'
-server_list_url = 'https://bluecloud.xyz/server'
+login_url       = 'https://monocloud.co/auth/login'
+server_list_url = 'https://monocloud.co/server'
 template        = open('openconnect_tpl.sh').read()
 
 def sendRequest(form):

@@ -1,4 +1,4 @@
-# bluecloud
+# bluecloud（现更名为 Monocloud）
 
 ## bluecloud 代理服务查询脚本
 

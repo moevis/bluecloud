@@ -9,7 +9,7 @@ import os
 import codecs
 
 
-login_url = 'https://monocloud.co/auth/login'
+login_url = 'https://monocloud.net/login'
 if isWindow():
     template  = codecs.open('shadowsocks_win_tpl.bat', encoding='utf-8').read()
 else:
@@ -17,18 +17,27 @@ else:
 
 def sendRequest(form):
     session = requests.Session()
+    response = session.get(login_url)
+    token = html.fromstring(response.content).xpath('/html/body/div[3]/div[1]/div[2]/form/input')[0].value
+    form['_token'] = token
     response = session.post(login_url, data=form)
+    # response = session.get('https://monocloud.net/home')
     tree = html.fromstring(response.content)
-    myService = tree.xpath(u'//h2[text()="我的服务"]')[0].getparent()
-    shadowsocksPage = myService.xpath('//a[starts-with(@href, "https://monocloud.co/shadowsock")]/@href')
+    # import ipdb; ipdb.set_trace()
+
+    myService = tree.xpath(u'//*[@id="sidebar-menu"]/ul')[0]
+   
+    shadowsocksPage = myService.xpath('//a[starts-with(@href, "https://monocloud.net/service/")]/@href')
     for url in shadowsocksPage:
-        getShadowsocksInfo(session, url)
+        getShadowsocksInfo(session, url.replace('service', 'shadowsocks'))
 
 def getShadowsocksInfo(session, url):
     response = session.get(url)
     tree = html.fromstring(response.content)
-    entries = tree.xpath('//*[@class="row"]')
-    serviceName = entries[0].xpath('//h4/text()')[0]
+    entries = tree.xpath('//table[@class="table"]')
+    serviceName = tree.xpath('//*[@class="page-title"]/text()')[0]
+    if "Classic" in serviceName:
+        return
     print serviceName
     print "================="
     if not os.path.isdir(serviceName):
@@ -41,22 +50,16 @@ def getShadowsocksInfo(session, url):
             generateFile(serviceName, entry)
 
 def generateFileWin(folder, entry):
-    texts = entry.xpath('.//p/text()')
-    _, _, server, _, _, method = texts[0].split(' ')
-    arr = texts[1].split(' ')
-    password, port, ratio = arr[1], arr[3], arr[7]
-    extra = u'\n'.join(map(lambda x: u'echo ' + x, texts[2:]))
+    texts = entry.xpath('.//td/text()')
+    extra, server, port, ratio, password, method = texts
     command = template.format(server=server, method=method, password=password, port=port, ratio=ratio, extra=extra)
     with codecs.open(folder + '/' + server + '.bat', 'w', encoding='utf-8') as file:
         file.write(command)
     print server
 
 def generateFile(folder, entry):
-    texts = entry.xpath('.//p/text()')
-    _, _, server, _, _, method = texts[0].split(' ')
-    arr = texts[1].split(' ')
-    password, port, ratio = arr[1], arr[3], arr[7]
-    extra = '\n'.join(texts[2:])
+    texts = entry.xpath('.//td/text()')
+    extra, server, port, ratio, password, method = texts
     command = template.format(server=server, method=method, password=password, port=port, ratio=ratio, extra=extra)
     with codecs.open(folder + '/' + server + '.sh', 'w', encoding='utf-8') as file:
         file.write(command)

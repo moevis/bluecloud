@@ -12,7 +12,7 @@ def getConfig():
         password = config.get('account', 'password')
 
         form = {
-            'identity': identity,
+            'email': identity,
             'password': password
         }
     else:
@@ -23,7 +23,7 @@ def createConfig():
     username = raw_input('Username: ')
     password = getpass.getpass()
     form = {
-        'identity': username,
+        'email': username,
         'password': password
     }
     configFile = open('config.ini', 'w')

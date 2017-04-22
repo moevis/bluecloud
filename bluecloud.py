@@ -17,7 +17,7 @@ def sendRequest(form):
         segment = segment[0]
         service_name = segment.xpath('//h4/text()')
         service_usage = segment.xpath('//div[@class="label"]/text()')
-        myService = tree.xpath(u'//h2[text()="我的服务"]')[0].getparent()
+        myService = tree.xpath(u'//span[text()=" 我的服务 "]')[0].getparent()
         periods = myService.xpath('p/text()')
     else:
         print "Error!"

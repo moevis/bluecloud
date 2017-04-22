@@ -8,11 +8,11 @@ USER="{user}"
 
 function start_connection
 {{
-    if [[ $SERVER == hk* ]]; then
-        echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER
-    else
-        echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER:4433 
-    fi
+    # if [[ $SERVER == hk* ]]; then
+	echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER
+    # else
+	# echo $PASSWD | sudo openconnect --user=$USER --authgroup=$MODE --passwd-on-stdin $SERVER:4433 
+    # fi
 }}
 
 function show_connection_info

@@ -26,7 +26,7 @@ def sendRequest(form):
     # import ipdb; ipdb.set_trace()
 
     myService = tree.xpath(u'//*[@id="sidebar-menu"]/ul')[0]
-   
+
     shadowsocksPage = myService.xpath('//a[starts-with(@href, "https://monocloud.net/service/")]/@href')
     for url in shadowsocksPage:
         getShadowsocksInfo(session, url.replace('service', 'shadowsocks'))
@@ -51,7 +51,7 @@ def getShadowsocksInfo(session, url):
 
 def generateFileWin(folder, entry):
     texts = entry.xpath('.//td/text()')
-    extra, server, port, ratio, password, method = texts
+    extra, server, port, ratio, password, method = texts[:6]
     command = template.format(server=server, method=method, password=password, port=port, ratio=ratio, extra=extra)
     with codecs.open(folder + '/' + server + '.bat', 'w', encoding='utf-8') as file:
         file.write(command)

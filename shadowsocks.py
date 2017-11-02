@@ -54,7 +54,7 @@ def getShadowsocksInfo(session, url):
 
 def generateFileWin(folder, entry):
     texts = entry.xpath('.//td/text()')
-    extra, server, port, ratio, password, method = texts[:6]
+    extra, server, ratio, port, password, method = texts[:6]
     command = template.format(server=server, method=method, password=password, port=port, ratio=ratio, extra=extra)
     with codecs.open(folder + '/' + server + '.bat', 'w', encoding='utf-8') as file:
         file.write(command)
@@ -62,7 +62,7 @@ def generateFileWin(folder, entry):
 
 def generateFile(folder, entry):
     texts = entry.xpath('.//td/text()')
-    extra, server, port, ratio, password, method = texts[:6]
+    extra, server, ratio, port, password, method = texts[:6]
     command = template.format(server=server, method=method, password=password, port=port, ratio=ratio, extra=extra)
     with codecs.open(folder + '/' + server + '.sh', 'w', encoding='utf-8') as file:
         file.write(command)
